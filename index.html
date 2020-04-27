@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+    const ActionLink = () => {
+        const handleClick = (e) => {
+            e.preventDefault();
+            console.log("You click to Ref.")
+        }
+        return(
+            <a href={'#'} onClick={handleClick}>Click me</a>
+        )
+    }
+
+    const FormattedDate = (props) => {
+        return(
+            <div>
+                <h2>It is {props.date.toLocaleTimeString()}</h2>
+                <h3>{props.comment}</h3>
+            </div>
+        )
+    }
+
+    class Clock extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                date: new Date(),
+                comment: 'bek'
+            };
+        }
+        /*
+        this.state
+        this.props
+
+        this.tick()
+        this.timerID
+         */
+        componentDidMount() { //lifecycle methods
+            this.timerID = setInterval(() => this.tick(), 2000);
+        }
+
+        componentWillUnmount() { // lifecycle methods
+            clearInterval(this.timerID);
+        }
+
+        tick() {
+            this.setState({
+                date: new Date(),
+                comment: "Hiii"
+            });
+        }
+
+        onChangeButton(){
+        }
+
+        render() {
+            return (
+                <div>
+                    <h1>Hello, world!</h1>
+                    <FormattedDate date={this.state.date} comment={this.state.comment} />
+                    <button onClick={this.onChangeButton}>Comment</button>
+                    <ActionLink />
+                </div>
+            )
+        }
+    }
+
+    class Toggle extends React.Component{
+        constructor(props) {
+            super(props);
+            this.state = {
+                isToggleOn: true
+            };
+
+            this.handleClick = this.handleClick.bind(this);
+
+        }
+
+        handleClick() {
+
+            this.setState(state => ({
+                ...state,
+                isToggleOn: false
+            }))
+        }
+
+        render() {
+            return(
+                <button onClick={this.handleClick}>{this.state.isToggleOn ? 'ON':'OFF'} {window.state = this.state}</button>
+            )
+        }
+    }
+    ReactDOM.render(<Toggle/>, document.getElementById('root'))
+
+</script>
+</body>
+</html>
